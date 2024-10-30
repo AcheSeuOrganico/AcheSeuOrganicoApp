@@ -53,7 +53,15 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<LoginResponse>
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val loginResponse = response.body()!!
+
+                    val sharedPreferences = getSharedPreferences("auth_prefs", MODE_PRIVATE)
+                    with(sharedPreferences.edit()) {
+                        putString("refresh_token", loginResponse.refresh)
+                        putString("access_token", loginResponse.access)
+                        apply()
+                    }
+                    val intent = Intent(this@LoginActivity, MenuActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
