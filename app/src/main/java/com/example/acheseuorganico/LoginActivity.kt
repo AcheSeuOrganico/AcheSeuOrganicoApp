@@ -2,6 +2,7 @@ package com.example.acheseuorganico
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -11,10 +12,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import android.util.Log
-import retrofit2.http.GET
-import retrofit2.http.Query
-
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 class LoginActivity : AppCompatActivity() {
 
@@ -39,55 +38,39 @@ class LoginActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString().trim()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://5441d33c-60fc-4d13-80de-4be37d681d17-00-3asek4tj4d5uq.riker.replit.dev/")
+            .baseUrl("http://192.168.0.8:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val apiService = retrofit.create(ApiService::class.java)
 
-        val call = apiService.login(email, password)
-        call.enqueue(object : Callback<List<LoginResponse>> {
+        val loginRequest = LoginRequest(username = email, password = password)
+
+        val call = apiService.login(loginRequest)
+        call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(
-                call: Call<List<LoginResponse>>,
-                response: Response<List<LoginResponse>>
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    val loginResponses = response.body()!!
-                    if (loginResponses.isNotEmpty()) {
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "UsuÃƒÂ¡rio ou senha invÃƒÂ¡lidos",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
-                    Log.e(
-                        "LoginActivity",
-                        "Login failed: HTTP error code: " + response.code() + " msg: " + response.message()
-                    )
-                    Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_LONG).show()
+                    Log.e("LoginActivity", "Login failed: HTTP error code: ${response.code()} msg: ${response.message()}")
+                    Toast.makeText(this@LoginActivity, "Login inválido: ${response.message()}", Toast.LENGTH_LONG).show()
                 }
             }
 
-            override fun onFailure(call: Call<List<LoginResponse>>, t: Throwable) {
-                Log.e("LoginActivity", "onFailure: " + t.message)
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Log.e("LoginActivity", "onFailure: ${t.message}")
                 Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
-
-
     }
 
-
     interface ApiService {
-        @GET("login")
-        fun login(
-            @Query("usuario") usuario: String,
-            @Query("senha") senha: String
-        ): Call<List<LoginResponse>>
+        @POST("auth/login/")
+        fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
     }
 }
