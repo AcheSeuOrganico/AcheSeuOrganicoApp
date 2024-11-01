@@ -1,10 +1,14 @@
 package com.example.acheseuorganico
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,13 +18,9 @@ import retrofit2.http.GET
 
 class MenuActivity : AppCompatActivity() {
 
-    private lateinit var organizationsTextView: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.menu_activity) // Update to your layout name
-
-        organizationsTextView = findViewById(R.id.organizationsTextView)
+        setContentView(R.layout.menu_activity)
 
         fetchOrganizations()
     }
@@ -32,25 +32,69 @@ class MenuActivity : AppCompatActivity() {
             .build()
 
         val apiService = retrofit.create(ApiService::class.java)
-
         val call = apiService.getOrganizations()
-        call.enqueue(object : Callback<List<Organization>> {
+
+        call.enqueue(object : Callback<OrganizationsResponse> {
             override fun onResponse(
-                call: Call<List<Organization>>,
-                response: Response<List<Organization>>
+                call: Call<OrganizationsResponse>,
+                response: Response<OrganizationsResponse>
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    val organizations = response.body()!!
-                    val orgNames = organizations.joinToString("\n") { it.fantasy_name }
-                    organizationsTextView.text = orgNames
-                    Toast.makeText(this@MenuActivity, orgNames, Toast.LENGTH_LONG).show()
+                    val organizations = response.body()!!.results
+
+                    val organizationsListLayout = findViewById<LinearLayout>(R.id.organizationsListLayout)
+                    organizationsListLayout.removeAllViews()
+
+                    for (organization in organizations) {
+                        val linearLayout = LinearLayout(this@MenuActivity).apply {
+                            orientation = LinearLayout.HORIZONTAL
+                            layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            setPadding(0, 8, 0, 8)
+                        }
+
+                        val textView = TextView(this@MenuActivity).apply {
+                            text = organization.fantasy_name
+                            textSize = 16f
+                            setTextColor(ContextCompat.getColor(this@MenuActivity, R.color.black))
+                            layoutParams = LinearLayout.LayoutParams(
+                                0,
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                1f // This makes the TextView take up the remaining space
+                            )
+                        }
+
+                        // Create the button
+                        val button = Button(this@MenuActivity).apply {
+                            background = ContextCompat.getDrawable(this@MenuActivity, R.drawable.icon_button)
+                            layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            setOnClickListener {
+                                // Intent to navigate to the organization details page
+                                val intent = Intent(this@MenuActivity, OrganizationActivity::class.java).apply {
+                                    putExtra("ORGANIZATION_ID", organization.id) // Pass the organization ID
+                                }
+                                startActivity(intent)
+                            }
+                        }
+
+                        // Add TextView and Button to the LinearLayout
+                        linearLayout.addView(textView)
+                        linearLayout.addView(button)
+
+                        organizationsListLayout.addView(linearLayout)
+                    }
                 } else {
                     Log.e("MenuActivity", "Request failed: ${response.code()} - ${response.message()}")
                     Toast.makeText(this@MenuActivity, "Failed to load organizations", Toast.LENGTH_LONG).show()
                 }
             }
 
-            override fun onFailure(call: Call<List<Organization>>, t: Throwable) {
+            override fun onFailure(call: Call<OrganizationsResponse>, t: Throwable) {
                 Log.e("MenuActivity", "Request failed: ${t.message}")
                 Toast.makeText(this@MenuActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
@@ -59,6 +103,6 @@ class MenuActivity : AppCompatActivity() {
 
     interface ApiService {
         @GET("organizations/")
-        fun getOrganizations(): Call<List<Organization>>
+        fun getOrganizations(): Call<OrganizationsResponse>
     }
 }

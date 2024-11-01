@@ -18,7 +18,7 @@
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Usuário"
         android:inputType="textEmailAddress"
         android:background="@drawable/edit_text_background"
     android:minHeight="48dp"

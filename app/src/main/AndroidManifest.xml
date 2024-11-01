@@ -26,6 +26,11 @@
             android:exported="false" />
 
         <activity
+            android:name=".OrganizationActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:exported="false" />
+
+        <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
             android:exported="true">
