@@ -48,10 +48,10 @@ class OrganizationActivity : AppCompatActivity() {
         val apiService = retrofit.create(ApiService::class.java)
 
         val call = apiService.getOrganizationDetails(organizationId)
-        call.enqueue(object : Callback<List<Organization>> {
-            override fun onResponse(call: Call<List<Organization>>, response: Response<List<Organization>>) {
+        call.enqueue(object : Callback<Organization> {
+            override fun onResponse(call: Call<Organization>, response: Response<Organization>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val organization = response.body()!!.first()
+                    val organization = response.body()!!
 
                     fantasyNameTextView.text = "Fantasy Name: ${organization.fantasy_name}"
                     cityTextView.text = "City: ${organization.address.city}"
@@ -67,7 +67,7 @@ class OrganizationActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<Organization>>, t: Throwable) {
+            override fun onFailure(call: Call<Organization>, t: Throwable) {
                 Log.e("OrganizationActivity", "Request failed: ${t.message}")
                 Toast.makeText(this@OrganizationActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
@@ -75,7 +75,7 @@ class OrganizationActivity : AppCompatActivity() {
     }
 
     interface ApiService {
-        @GET("organizations/{id}")
-        fun getOrganizationDetails(@Path("id") organizationId: Int): Call<List<Organization>>
+        @GET("v2/organizations/{id}")
+        fun getOrganizationDetails(@Path("id") organizationId: Int): Call<Organization>
     }
 }

@@ -113,7 +113,7 @@ class MenuActivity : AppCompatActivity() {
     }
 
     interface ApiService {
-        @GET("organizations/")
+        @GET("v2/organizations/")
         fun getOrganizations(): Call<OrganizationsResponse>
     }
 }
