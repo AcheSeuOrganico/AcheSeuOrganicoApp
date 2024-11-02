@@ -15,35 +15,38 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
-class MenuActivity : AppCompatActivity() {
-
-    private lateinit var tokenManager: TokenManager
+class MyEventsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.menu_activity)
+        setContentView(R.layout.my_events_activity)
 
         fetchOrganizations()
     }
 
     private fun fetchOrganizations() {
-        tokenManager = TokenManager(this)
         val retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.0.8:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val apiService = retrofit.create(ApiService::class.java)
-        val call = apiService.getOrganizations()
+        val goBackButton: Button = findViewById(R.id.goBackButton)
+        goBackButton.setOnClickListener {
+            finish()
+        }
 
-        val myFarmButton = findViewById<Button>(R.id.myOrganizations)
+        val myFarmButton = findViewById<Button>(R.id.addOrganizationButton)
         myFarmButton.setOnClickListener {
-            val intent = Intent(this@MenuActivity, MyEventsActivity::class.java).apply {
-                putExtra("USER_ID", tokenManager.getUserIdFromToken())
+            val intent = Intent(this@MyEventsActivity, MyEventsActivity::class.java).apply {
             }
             startActivity(intent)
         }
+
+        val apiService = retrofit.create(ApiService::class.java)
+        val userId = intent.getStringExtra("USER_ID") ?: "-1"
+        val call = apiService.getOrganizations(userId)
 
         call.enqueue(object : Callback<OrganizationsResponse> {
             override fun onResponse(
@@ -57,7 +60,7 @@ class MenuActivity : AppCompatActivity() {
                     organizationsListLayout.removeAllViews()
 
                     for (organization in organizations) {
-                        val linearLayout = LinearLayout(this@MenuActivity).apply {
+                        val linearLayout = LinearLayout(this@MyEventsActivity).apply {
                             orientation = LinearLayout.HORIZONTAL
                             layoutParams = LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -66,34 +69,31 @@ class MenuActivity : AppCompatActivity() {
                             setPadding(0, 8, 0, 8)
                         }
 
-                        val textView = TextView(this@MenuActivity).apply {
+                        val textView = TextView(this@MyEventsActivity).apply {
                             text = organization.fantasy_name
                             textSize = 16f
-                            setTextColor(ContextCompat.getColor(this@MenuActivity, R.color.black))
+                            setTextColor(ContextCompat.getColor(this@MyEventsActivity, R.color.black))
                             layoutParams = LinearLayout.LayoutParams(
                                 0,
                                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                                1f // This makes the TextView take up the remaining space
+                                1f
                             )
                         }
 
-                        // Create the button
-                        val button = Button(this@MenuActivity).apply {
-                            background = ContextCompat.getDrawable(this@MenuActivity, R.drawable.icon_button)
+                        val button = Button(this@MyEventsActivity).apply {
+                            background = ContextCompat.getDrawable(this@MyEventsActivity, R.drawable.icon_button)
                             layoutParams = LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT
                             )
                             setOnClickListener {
-                                // Intent to navigate to the organization details page
-                                val intent = Intent(this@MenuActivity, OrganizationActivity::class.java).apply {
-                                    putExtra("ORGANIZATION_ID", organization.id) // Pass the organization ID
+                                val intent = Intent(this@MyEventsActivity, OrganizationActivity::class.java).apply {
+                                    putExtra("ORGANIZATION_ID", organization.id)
                                 }
                                 startActivity(intent)
                             }
                         }
 
-                        // Add TextView and Button to the LinearLayout
                         linearLayout.addView(textView)
                         linearLayout.addView(button)
 
@@ -101,19 +101,19 @@ class MenuActivity : AppCompatActivity() {
                     }
                 } else {
                     Log.e("MenuActivity", "Request failed: ${response.code()} - ${response.message()}")
-                    Toast.makeText(this@MenuActivity, "Failed to load organizations", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MyEventsActivity, "Failed to load organizations", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<OrganizationsResponse>, t: Throwable) {
                 Log.e("MenuActivity", "Request failed: ${t.message}")
-                Toast.makeText(this@MenuActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MyEventsActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
 
     interface ApiService {
-        @GET("organizations/")
-        fun getOrganizations(): Call<OrganizationsResponse>
+        @GET("v2/organizations")
+        fun getOrganizations(@Query("search") userId: String): Call<OrganizationsResponse>
     }
 }

@@ -31,6 +31,11 @@
             android:exported="false" />
 
         <activity
+            android:name=".MyEventsActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:exported="false" />
+
+        <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
             android:exported="true">

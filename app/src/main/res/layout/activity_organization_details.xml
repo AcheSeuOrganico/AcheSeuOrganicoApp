@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Voltar"
+        android:textColor="#E8F5E9"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#134908" />
 

@@ -6,14 +6,30 @@
     android:padding="16dp"
     android:background="#E8F5E9">
 
-    <Button
-        android:id="@+id/myOrganizations"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Minhas Feiras"
-        android:layout_marginBottom="16dp"
-        android:textColor="#E8F5E9"
-        android:backgroundTint="#134908" />
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/goBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voltar"
+            android:textColor="#E8F5E9"
+            android:backgroundTint="#134908" />
+
+        <Button
+            android:id="@+id/addOrganizationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Organização"
+            android:textColor="#E8F5E9"
+            android:backgroundTint="#134908"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
 
     <!-- Search Bar -->
     <ImageView
