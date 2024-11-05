@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#E8F5E9">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:text="Cadastrar Feira"
+        android:textSize="20sp"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/fantasyNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nome da feira"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp"
+        android:layout_marginTop="24dp"/>
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descrição"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Address Fields -->
+    <EditText
+        android:id="@+id/cepEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CEP"
+        android:inputType="textPostalAddress"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/addressNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Logradouro"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/cityEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cidade"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/stateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Estado"
+        android:maxLength="2"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        android:textColor="#E8F5E9"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_background" />
+
+</LinearLayout>

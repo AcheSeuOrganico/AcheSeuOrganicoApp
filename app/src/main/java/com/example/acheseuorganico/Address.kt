@@ -5,7 +5,7 @@ data class Address(
     val name: String,
     val city: String,
     val state: String,
-    val latitude: String,
-    val longitude: String,
-    val number: String
+    val latitude: String? = null,
+    val longitude: String? = null,
+    val number: String? = null
 )

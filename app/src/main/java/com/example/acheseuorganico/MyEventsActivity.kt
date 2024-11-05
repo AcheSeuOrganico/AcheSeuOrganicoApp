@@ -44,6 +44,13 @@ class MyEventsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val addOrganizationButton = findViewById<Button>(R.id.addOrganizationButton)
+        addOrganizationButton.setOnClickListener {
+            // Start CreateOrganizationActivity
+            val intent = Intent(this@MyEventsActivity, CreateOrganizationActivity::class.java)
+            startActivity(intent)
+        }
+
         val apiService = retrofit.create(ApiService::class.java)
         val userId = intent.getStringExtra("USER_ID") ?: "-1"
         val call = apiService.getOrganizations(userId)
