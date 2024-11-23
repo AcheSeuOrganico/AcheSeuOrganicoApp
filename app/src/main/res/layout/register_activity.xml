@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8F5E9"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nomeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/sobrenomeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Sobrenome"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/usuarioEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Usuário"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/senhaEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/repetirSenhaEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Repita a Senha"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/nomeFantasiaEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Nome fantasia"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/cepEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="CEP"
+            android:inputType="number"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/estadoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Estado"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000"
+            android:enabled="false" />
+
+        <EditText
+            android:id="@+id/cidadeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Cidade"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000"
+            android:enabled="false" />
+
+        <EditText
+            android:id="@+id/enderecoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Endereço"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000"
+            android:enabled="false" />
+
+        <EditText
+            android:id="@+id/numeroEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Número"
+            android:inputType="number"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:textColorHint="#000000"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Registrar"
+            android:textColor="#E8F5E9"
+            android:background="@drawable/button_background" />
+    </LinearLayout>
+</ScrollView>

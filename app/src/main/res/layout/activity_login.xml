@@ -21,10 +21,10 @@
         android:hint="Usuário"
         android:inputType="textEmailAddress"
         android:background="@drawable/edit_text_background"
-    android:minHeight="48dp"
-    android:textColorHint="#000000"
-    android:textColor="#000000"
-    android:padding="12dp"/>
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -37,7 +37,7 @@
         android:minHeight="48dp"
         android:textColorHint="#000000"
         android:textColor="#000000"
-        android:padding="12dp"/>
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/loginButton"
@@ -46,7 +46,17 @@
         android:text="Login"
         android:textColor="#E8F5E9"
         android:layout_marginTop="24dp"
-        android:background="@drawable/button_background"
-        />
+        android:background="@drawable/button_background" />
 
+    <TextView
+        android:id="@+id/registerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Já tem uma conta? Cadastre-se!"
+        android:textColor="#388E3C"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true" />
 </LinearLayout>
