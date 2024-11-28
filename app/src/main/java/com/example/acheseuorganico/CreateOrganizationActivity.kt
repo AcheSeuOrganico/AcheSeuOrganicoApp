@@ -49,7 +49,7 @@ class CreateOrganizationActivity : AppCompatActivity() {
         val state = stateEditText.text.toString().trim()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.8:8000/api/v2/")
+            .baseUrl("http://192.168.0.3:8000/api/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

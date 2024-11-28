@@ -19,7 +19,10 @@ import retrofit2.http.Path
 class OrganizationActivity : AppCompatActivity() {
 
     private lateinit var fantasyNameTextView: TextView
+    private lateinit var stateTextView: TextView
     private lateinit var cityTextView: TextView
+    private lateinit var streetTextView: TextView
+    private lateinit var numberTextView: TextView
     private lateinit var organizationImageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +31,9 @@ class OrganizationActivity : AppCompatActivity() {
 
         fantasyNameTextView = findViewById(R.id.fantasyNameTextView)
         cityTextView = findViewById(R.id.cityTextView)
+        stateTextView = findViewById(R.id.stateTextView)
+        streetTextView = findViewById(R.id.streetTextView)
+        numberTextView = findViewById(R.id.numberTextView)
         organizationImageView = findViewById(R.id.organizationImageView)
 
         val goBackButton: Button = findViewById(R.id.goBackButton)
@@ -41,7 +47,7 @@ class OrganizationActivity : AppCompatActivity() {
 
     private fun fetchOrganizationDetails(organizationId: Int) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.8:8000/api/")
+            .baseUrl("http://192.168.0.3:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -53,11 +59,14 @@ class OrganizationActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val organization = response.body()!!
 
-                    fantasyNameTextView.text = "Fantasy Name: ${organization.fantasy_name}"
-                    cityTextView.text = "City: ${organization.address.city}"
+                    fantasyNameTextView.text = "Nome da organização: ${organization.fantasy_name}"
+                    stateTextView.text = "Estado: ${organization.address.state}"
+                    cityTextView.text = "Cidade: ${organization.address.city}"
+                    streetTextView.text = "Logradouro: ${organization.address.name}"
+                    numberTextView.text = "Numero: ${organization.address.number}"
 
-                    // Load the image using Glide
-                    val imageUrl = "http://192.168.0.8:8000${organization.img}"
+
+                    val imageUrl = "http://192.168.0.3:8000${organization.img}"
                     Glide.with(this@OrganizationActivity)
                         .load(imageUrl)
                         .into(organizationImageView)

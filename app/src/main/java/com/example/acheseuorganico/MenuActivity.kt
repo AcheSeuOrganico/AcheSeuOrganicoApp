@@ -30,7 +30,7 @@ class MenuActivity : AppCompatActivity() {
     private fun fetchOrganizations() {
         tokenManager = TokenManager(this)
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.8:8000/api/")
+            .baseUrl("http://192.168.0.3:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -73,27 +73,28 @@ class MenuActivity : AppCompatActivity() {
                             layoutParams = LinearLayout.LayoutParams(
                                 0,
                                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                                1f // This makes the TextView take up the remaining space
+                                1f
                             )
                         }
 
-                        // Create the button
+
                         val button = Button(this@MenuActivity).apply {
                             background = ContextCompat.getDrawable(this@MenuActivity, R.drawable.icon_button)
                             layoutParams = LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.WRAP_CONTENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT
-                            )
+                                resources.getDimensionPixelSize(R.dimen.circle_size),
+                                resources.getDimensionPixelSize(R.dimen.circle_size)
+                            ).apply {
+                                setMargins(8, 8, 8, 8)
+                            }
+                            text = ""
                             setOnClickListener {
-                                // Intent to navigate to the organization details page
                                 val intent = Intent(this@MenuActivity, OrganizationActivity::class.java).apply {
-                                    putExtra("ORGANIZATION_ID", organization.id) // Pass the organization ID
+                                    putExtra("ORGANIZATION_ID", organization.id)
                                 }
                                 startActivity(intent)
                             }
                         }
 
-                        // Add TextView and Button to the LinearLayout
                         linearLayout.addView(textView)
                         linearLayout.addView(button)
 

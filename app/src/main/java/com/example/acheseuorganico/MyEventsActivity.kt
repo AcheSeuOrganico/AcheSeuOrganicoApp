@@ -28,7 +28,7 @@ class MyEventsActivity : AppCompatActivity() {
 
     private fun fetchOrganizations() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.8:8000/api/")
+            .baseUrl("http://192.168.0.3:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -90,9 +90,12 @@ class MyEventsActivity : AppCompatActivity() {
                         val button = Button(this@MyEventsActivity).apply {
                             background = ContextCompat.getDrawable(this@MyEventsActivity, R.drawable.icon_button)
                             layoutParams = LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.WRAP_CONTENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT
-                            )
+                                resources.getDimensionPixelSize(R.dimen.circle_size),
+                                resources.getDimensionPixelSize(R.dimen.circle_size)
+                            ).apply {
+                                setMargins(8, 8, 8, 8)
+                            }
+                            text = ""
                             setOnClickListener {
                                 val intent = Intent(this@MyEventsActivity, OrganizationActivity::class.java).apply {
                                     putExtra("ORGANIZATION_ID", organization.id)

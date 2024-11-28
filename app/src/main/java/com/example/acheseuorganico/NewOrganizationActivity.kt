@@ -28,7 +28,7 @@ class NewOrganizationActivity : AppCompatActivity() {
 
     private fun fetchOrganizations() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.8:8000/api/")
+            .baseUrl("http://192.168.0.3:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

@@ -22,13 +22,23 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
-        android:background="@drawable/rounded_corners_background" />
+        android:background="@drawable/rounded_corners_background"
+        android:clipToOutline="true" />
 
     <TextView
         android:id="@+id/fantasyNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nome Organização:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/stateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estado:"
         android:textColor="#000000"
         android:textSize="18sp"
         android:layout_marginBottom="8dp"/>
@@ -42,5 +52,22 @@
         android:textSize="18sp"
         android:layout_marginBottom="8dp"/>
 
+    <TextView
+        android:id="@+id/streetTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cidade:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/numberTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cidade:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
 
 </LinearLayout>
