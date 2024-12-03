@@ -39,7 +39,17 @@
         android:padding="12dp"
         android:layout_marginTop="16dp"/>
 
-    <!-- Address Fields -->
+    <TextView
+        android:id="@+id/productsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Selecionar Produtos"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:focusable="true"
+        android:clickable="true" />
+
     <EditText
         android:id="@+id/cepEditText"
         android:layout_width="match_parent"
@@ -77,20 +87,24 @@
         android:padding="12dp"
         android:layout_marginTop="16dp"/>
 
-    <Spinner
-        android:id="@+id/productsSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="12dp"
-        android:background="@drawable/edit_text_background"
-        android:spinnerMode="dropdown" />
-
     <EditText
         android:id="@+id/stateEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Estado"
+        android:maxLength="2"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/numberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número"
         android:maxLength="2"
         android:background="@drawable/edit_text_background"
         android:minHeight="48dp"
