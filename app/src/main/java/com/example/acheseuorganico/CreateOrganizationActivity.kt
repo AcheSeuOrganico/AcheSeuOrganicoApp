@@ -13,6 +13,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+import android.widget.Spinner
+import android.widget.ArrayAdapter
+import android.widget.AdapterView
+import android.view.View
 
 class CreateOrganizationActivity : AppCompatActivity() {
 
@@ -22,6 +26,8 @@ class CreateOrganizationActivity : AppCompatActivity() {
     private lateinit var addressNameEditText: EditText
     private lateinit var cityEditText: EditText
     private lateinit var stateEditText: EditText
+    private lateinit var productsSpinner: Spinner
+    private lateinit var selectedProducts: List<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +41,23 @@ class CreateOrganizationActivity : AppCompatActivity() {
         stateEditText = findViewById(R.id.stateEditText)
         val saveButton: Button = findViewById(R.id.saveButton)
 
+        productsSpinner = findViewById(R.id.productsSpinner)
+
+        val productOptions = listOf(1, 2, 3, 4)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, productOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        productsSpinner.adapter = adapter
+
+        productsSpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedProducts = listOf(productOptions[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedProducts = emptyList()
+            }
+        })
+
         saveButton.setOnClickListener {
             createOrganization()
         }
@@ -47,6 +70,9 @@ class CreateOrganizationActivity : AppCompatActivity() {
         val addressName = addressNameEditText.text.toString().trim()
         val city = cityEditText.text.toString().trim()
         val state = stateEditText.text.toString().trim()
+        val latitude = "-23.57433"
+        val longitude = "-46.86267"
+        val number = "283"
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.0.3:8000/api/v2/")
@@ -58,7 +84,16 @@ class CreateOrganizationActivity : AppCompatActivity() {
         val organizationRequest = OrganizationRequest(
             fantasy_name = fantasyName,
             description = description,
-            address = Address(cep = cep, name = addressName, city = city, state = state)
+            address = Address(
+                cep = cep,
+                name = addressName,
+                state = state,
+                city = city,
+                latitude = latitude,
+                longitude = longitude,
+                number = number
+            ),
+            products = selectedProducts
         )
 
         val call = apiService.createOrganization(organizationRequest)
