@@ -79,7 +79,7 @@ class MenuActivity : AppCompatActivity() {
 
 
                         val button = Button(this@MenuActivity).apply {
-                            background = ContextCompat.getDrawable(this@MenuActivity, R.drawable.icon_button)
+                            background = ContextCompat.getDrawable(this@MenuActivity, R.drawable.angle_square_right)
                             layoutParams = LinearLayout.LayoutParams(
                                 resources.getDimensionPixelSize(R.dimen.circle_size),
                                 resources.getDimensionPixelSize(R.dimen.circle_size)

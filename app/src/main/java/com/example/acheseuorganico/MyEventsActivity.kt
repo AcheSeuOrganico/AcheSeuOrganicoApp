@@ -26,6 +26,16 @@ class MyEventsActivity : AppCompatActivity() {
         fetchOrganizations()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            val newOrganizationCreated = data?.getBooleanExtra("new_organization_created", false) ?: false
+            if (newOrganizationCreated) {
+                fetchOrganizations()
+            }
+        }
+    }
+
     private fun fetchOrganizations() {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.0.3:8000/api/")
@@ -88,7 +98,7 @@ class MyEventsActivity : AppCompatActivity() {
                         }
 
                         val button = Button(this@MyEventsActivity).apply {
-                            background = ContextCompat.getDrawable(this@MyEventsActivity, R.drawable.icon_button)
+                            background = ContextCompat.getDrawable(this@MyEventsActivity, R.drawable.angle_square_right)
                             layoutParams = LinearLayout.LayoutParams(
                                 resources.getDimensionPixelSize(R.dimen.circle_size),
                                 resources.getDimensionPixelSize(R.dimen.circle_size)

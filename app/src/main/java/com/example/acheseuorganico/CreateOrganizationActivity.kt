@@ -19,6 +19,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.GET
+import android.content.Intent
 
 class CreateOrganizationActivity : AppCompatActivity() {
 
@@ -152,6 +153,9 @@ class CreateOrganizationActivity : AppCompatActivity() {
             override fun onResponse(call: Call<OrganizationPostResponse>, response: Response<OrganizationPostResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@CreateOrganizationActivity, "Organization created successfully!", Toast.LENGTH_LONG).show()
+                    val intent = Intent()
+                    intent.putExtra("new_organization_created", true)
+                    setResult(RESULT_OK, intent)
                     finish()
                 } else {
                     Log.e("CreateOrganization", "Creation failed: ${response.message()}")
