@@ -8,5 +8,6 @@ data class Organization(
     val email: String,
     val address: Address,
     val products: List<Product>,
-    val img: String
+    val img: String,
+    val user_id: String?
 )

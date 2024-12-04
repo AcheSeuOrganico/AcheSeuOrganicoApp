@@ -24,6 +24,11 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var tokenManager: TokenManager
     private var organizations: List<Organization> = listOf()
 
+    override fun onResume() {
+        super.onResume()
+        fetchOrganizations()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_activity)

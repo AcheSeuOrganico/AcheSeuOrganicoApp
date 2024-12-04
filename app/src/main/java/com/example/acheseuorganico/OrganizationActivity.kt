@@ -1,5 +1,6 @@
 package com.example.acheseuorganico
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -24,6 +25,9 @@ class OrganizationActivity : AppCompatActivity() {
     private lateinit var streetTextView: TextView
     private lateinit var numberTextView: TextView
     private lateinit var organizationImageView: ImageView
+    private lateinit var editButton: Button
+    private lateinit var deleteButton: Button
+    private lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +39,63 @@ class OrganizationActivity : AppCompatActivity() {
         streetTextView = findViewById(R.id.streetTextView)
         numberTextView = findViewById(R.id.numberTextView)
         organizationImageView = findViewById(R.id.organizationImageView)
+        editButton = findViewById(R.id.editButton)
+        deleteButton = findViewById(R.id.deleteButton)
 
-        val goBackButton: Button = findViewById(R.id.goBackButton)
-        goBackButton.setOnClickListener {
-            finish()
-        }
+        tokenManager = TokenManager(this)
 
         val organizationId = intent.getIntExtra("ORGANIZATION_ID", -1)
+
+        val goBackButton: Button = findViewById(R.id.goBackButton)
+        goBackButton.setOnClickListener { finish() }
+
+        editButton.setOnClickListener {
+            val intent = Intent(this, UpdateOrganizationActivity::class.java)
+            intent.putExtra("ORGANIZATION_ID", organizationId)
+            startActivity(intent)
+        }
+
+        deleteButton.setOnClickListener { confirmAndDeleteOrganization(organizationId) }
+
+        // Initially hide the buttons
+        editButton.visibility = Button.GONE
+        deleteButton.visibility = Button.GONE
+
         fetchOrganizationDetails(organizationId)
+    }
+
+    private fun confirmAndDeleteOrganization(organizationId: Int) {
+        val alertDialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Excluir Organização")
+            .setMessage("Você tem certeza que deseja excluir esta organização?")
+            .setPositiveButton("Sim") { _, _ -> deleteOrganization(organizationId) }
+            .setNegativeButton("Não", null)
+            .create()
+        alertDialog.show()
+    }
+
+    private fun deleteOrganization(organizationId: Int) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.0.3:8000/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(ApiService::class.java)
+        val call = apiService.deleteOrganization(organizationId)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@OrganizationActivity, "Organização excluída com sucesso", Toast.LENGTH_LONG).show()
+                    finish()
+                } else {
+                    Toast.makeText(this@OrganizationActivity, "Erro ao excluir organização", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@OrganizationActivity, "Erro: ${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun fetchOrganizationDetails(organizationId: Int) {
@@ -65,11 +118,18 @@ class OrganizationActivity : AppCompatActivity() {
                     streetTextView.text = "Logradouro: ${organization.address.name}"
                     numberTextView.text = "Numero: ${organization.address.number}"
 
-
                     val imageUrl = "http://192.168.0.3:8000${organization.img}"
                     Glide.with(this@OrganizationActivity)
                         .load(imageUrl)
                         .into(organizationImageView)
+
+
+                    val apiUserId = organization.user_id
+                    val localUserId = tokenManager.getUserIdFromToken()
+                    if (apiUserId == localUserId) {
+                        editButton.visibility = Button.VISIBLE
+                        deleteButton.visibility = Button.VISIBLE
+                    }
                 } else {
                     Log.e("OrganizationActivity", "Request failed: ${response.code()} - ${response.message()}")
                     Toast.makeText(this@OrganizationActivity, "Failed to load organization details", Toast.LENGTH_LONG).show()
@@ -86,5 +146,8 @@ class OrganizationActivity : AppCompatActivity() {
     interface ApiService {
         @GET("v2/organization/{id}")
         fun getOrganizationDetails(@Path("id") organizationId: Int): Call<Organization>
+
+        @retrofit2.http.DELETE("v2/organizations/{id}/delete")
+        fun deleteOrganization(@Path("id") organizationId: Int): Call<Void>
     }
 }

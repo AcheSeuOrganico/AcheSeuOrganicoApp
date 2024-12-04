@@ -6,14 +6,41 @@
     android:padding="16dp"
     android:background="#E8F5E9">
 
-    <Button
-        android:id="@+id/goBackButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Voltar"
-        android:textColor="#E8F5E9"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#134908" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/goBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voltar"
+            android:textColor="#E8F5E9"
+            android:backgroundTint="#134908"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:textColor="#E8F5E9"
+            android:backgroundTint="#0288D1"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Excluir"
+            android:textColor="#E8F5E9"
+            android:backgroundTint="#D32F2F"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/organizationImageView"

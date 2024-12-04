@@ -30,6 +30,7 @@ class CreateOrganizationActivity : AppCompatActivity() {
         4 to "Verduras"
     )
 
+    private lateinit var tokenManager: TokenManager
     private lateinit var fantasyNameEditText: EditText
     private lateinit var descriptionEditText: EditText
     private lateinit var cepEditText: EditText
@@ -126,6 +127,7 @@ class CreateOrganizationActivity : AppCompatActivity() {
         val longitudeValue = longitude ?: "0.0"
         val number = numberEditText.text.toString().trim()
 
+        tokenManager = TokenManager(this)
         val retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.0.3:8000/api/v2/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -145,7 +147,8 @@ class CreateOrganizationActivity : AppCompatActivity() {
                 longitude = longitudeValue,
                 number = number
             ),
-            products = selectedProducts
+            products = selectedProducts,
+            user_id = tokenManager.getUserIdFromToken()
         )
 
         val call = apiService.createOrganization(organizationRequest)

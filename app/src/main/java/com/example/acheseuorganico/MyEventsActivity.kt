@@ -22,9 +22,25 @@ import android.text.TextWatcher
 
 class MyEventsActivity : AppCompatActivity() {
 
+    override fun onResume() {
+        super.onResume()
+        fetchOrganizations()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.my_events_activity)
+
+        val goBackButton: Button = findViewById(R.id.goBackButton)
+        goBackButton.setOnClickListener {
+            finish()
+        }
+
+        val createOrganizationButton: Button = findViewById(R.id.addOrganizationButton)
+        createOrganizationButton.setOnClickListener {
+            val intent = Intent(this@MyEventsActivity, CreateOrganizationActivity::class.java)
+            startActivity(intent)
+        }
 
         fetchOrganizations()
     }
