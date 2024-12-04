@@ -84,7 +84,7 @@ class OrganizationActivity : AppCompatActivity() {
     }
 
     interface ApiService {
-        @GET("v2/organizations/{id}")
+        @GET("v2/organization/{id}")
         fun getOrganizationDetails(@Path("id") organizationId: Int): Call<Organization>
     }
 }
