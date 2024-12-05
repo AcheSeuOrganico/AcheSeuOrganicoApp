@@ -6,42 +6,45 @@
     android:padding="16dp"
     android:background="#E8F5E9">
 
+    <!-- Header Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
 
         <Button
             android:id="@+id/goBackButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Voltar"
             android:textColor="#E8F5E9"
             android:backgroundTint="#134908"
-            android:layout_weight="1"
             android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/editButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Editar"
             android:textColor="#E8F5E9"
             android:backgroundTint="#0288D1"
-            android:layout_weight="1"
             android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Excluir"
             android:textColor="#E8F5E9"
-            android:backgroundTint="#D32F2F"
-            android:layout_weight="1" />
+            android:backgroundTint="#D32F2F" />
     </LinearLayout>
 
+    <!-- Organization Image -->
     <ImageView
         android:id="@+id/organizationImageView"
         android:layout_width="120dp"
@@ -52,49 +55,84 @@
         android:background="@drawable/rounded_corners_background"
         android:clipToOutline="true" />
 
+    <!-- Description -->
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descrição breve sobre a organização..."
+        android:textColor="#757575"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Organization Name (Title) -->
     <TextView
         android:id="@+id/fantasyNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome Organização:"
+        android:text="Nome da Organização"
         android:textColor="#000000"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
 
-    <TextView
-        android:id="@+id/stateTextView"
+    <!-- Address Information -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Estado:"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp">
 
-    <TextView
-        android:id="@+id/cityTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cidade:"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+        <!-- State and City -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-    <TextView
-        android:id="@+id/streetTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cidade:"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/cityTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="São Paulo"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginEnd="4dp" />
 
-    <TextView
-        android:id="@+id/numberTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cidade:"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/stateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SP"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </LinearLayout>
 
+        <!-- Street and Number -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/streetTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rua das Palmeiras"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginEnd="4dp" />
+
+            <TextView
+                android:id="@+id/numberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="125"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

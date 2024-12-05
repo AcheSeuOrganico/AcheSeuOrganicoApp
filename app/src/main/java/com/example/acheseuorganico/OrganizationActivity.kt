@@ -24,6 +24,7 @@ class OrganizationActivity : AppCompatActivity() {
     private lateinit var cityTextView: TextView
     private lateinit var streetTextView: TextView
     private lateinit var numberTextView: TextView
+    private lateinit var descriptionTextView: TextView
     private lateinit var organizationImageView: ImageView
     private lateinit var editButton: Button
     private lateinit var deleteButton: Button
@@ -38,6 +39,7 @@ class OrganizationActivity : AppCompatActivity() {
         stateTextView = findViewById(R.id.stateTextView)
         streetTextView = findViewById(R.id.streetTextView)
         numberTextView = findViewById(R.id.numberTextView)
+        descriptionTextView = findViewById(R.id.descriptionTextView)
         organizationImageView = findViewById(R.id.organizationImageView)
         editButton = findViewById(R.id.editButton)
         deleteButton = findViewById(R.id.deleteButton)
@@ -112,11 +114,12 @@ class OrganizationActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val organization = response.body()!!
 
-                    fantasyNameTextView.text = "Nome da organização: ${organization.fantasy_name}"
-                    stateTextView.text = "Estado: ${organization.address.state}"
-                    cityTextView.text = "Cidade: ${organization.address.city}"
-                    streetTextView.text = "Logradouro: ${organization.address.name}"
-                    numberTextView.text = "Numero: ${organization.address.number}"
+                    fantasyNameTextView.text = "${organization.fantasy_name}"
+                    descriptionTextView.text = "${organization.description}"
+                    stateTextView.text = "${organization.address.state}"
+                    cityTextView.text = "${organization.address.city}"
+                    streetTextView.text = "${organization.address.name}"
+                    numberTextView.text = "${organization.address.number}"
 
                     val imageUrl = "http://192.168.0.3:8000${organization.img}"
                     Glide.with(this@OrganizationActivity)
