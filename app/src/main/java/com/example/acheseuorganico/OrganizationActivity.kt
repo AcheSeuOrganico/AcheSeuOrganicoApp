@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.LinearLayout
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,13 @@ class OrganizationActivity : AppCompatActivity() {
     private lateinit var editButton: Button
     private lateinit var deleteButton: Button
     private lateinit var tokenManager: TokenManager
+
+    val productIcons = mapOf(
+        "1" to R.drawable.vegetais,
+        "2" to R.drawable.frutas,
+        "3" to R.drawable.produtos,
+        "4" to R.drawable.verduras
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +67,6 @@ class OrganizationActivity : AppCompatActivity() {
 
         deleteButton.setOnClickListener { confirmAndDeleteOrganization(organizationId) }
 
-        // Initially hide the buttons
         editButton.visibility = Button.GONE
         deleteButton.visibility = Button.GONE
 
@@ -100,6 +107,36 @@ class OrganizationActivity : AppCompatActivity() {
         })
     }
 
+    private fun renderProducts(products: List<Product>) {
+        val productsContainer: LinearLayout = findViewById(R.id.productsContainer)
+        productsContainer.removeAllViews()
+
+        if (products.isEmpty()) return
+
+        val svgMap = mapOf(
+            "1" to R.drawable.vegetais,
+            "2" to R.drawable.frutas,
+            "3" to R.drawable.produtos,
+            "4" to R.drawable.verduras
+        )
+
+        products.forEach { product ->
+            val drawableResId = svgMap[product.product_id] ?: return@forEach
+            val imageView = ImageView(this).apply {
+                setImageResource(drawableResId)
+                adjustViewBounds = true
+                scaleType = ImageView.ScaleType.CENTER_INSIDE
+                layoutParams = LinearLayout.LayoutParams(
+                    resources.getDimensionPixelSize(R.dimen.icon_size),
+                    resources.getDimensionPixelSize(R.dimen.icon_size)
+                ).apply {
+                    marginEnd = 16
+                }
+            }
+            productsContainer.addView(imageView)
+        }
+    }
+
     private fun fetchOrganizationDetails(organizationId: Int) {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.0.3:8000/api/")
@@ -114,18 +151,19 @@ class OrganizationActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val organization = response.body()!!
 
-                    fantasyNameTextView.text = "${organization.fantasy_name}"
-                    descriptionTextView.text = "${organization.description}"
-                    stateTextView.text = "${organization.address.state}"
-                    cityTextView.text = "${organization.address.city}"
-                    streetTextView.text = "${organization.address.name}"
-                    numberTextView.text = "${organization.address.number}"
+                    fantasyNameTextView.text = organization.fantasy_name
+                    descriptionTextView.text = organization.description
+                    stateTextView.text = organization.address.state
+                    cityTextView.text = organization.address.city
+                    streetTextView.text = organization.address.name
+                    numberTextView.text = organization.address.number
 
                     val imageUrl = "http://192.168.0.3:8000${organization.img}"
                     Glide.with(this@OrganizationActivity)
                         .load(imageUrl)
                         .into(organizationImageView)
 
+                    renderProducts(organization.products)
 
                     val apiUserId = organization.user_id
                     val localUserId = tokenManager.getUserIdFromToken()

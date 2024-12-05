@@ -55,7 +55,6 @@
         android:background="@drawable/rounded_corners_background"
         android:clipToOutline="true" />
 
-    <!-- Description -->
     <TextView
         android:id="@+id/descriptionTextView"
         android:layout_width="match_parent"
@@ -66,7 +65,18 @@
         android:gravity="center"
         android:layout_marginBottom="12dp" />
 
-    <!-- Organization Name (Title) -->
+    <LinearLayout
+        android:id="@+id/productsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent">
+    </LinearLayout>
+
     <TextView
         android:id="@+id/fantasyNameTextView"
         android:layout_width="match_parent"
