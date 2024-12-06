@@ -23,6 +23,7 @@ class MenuActivity : AppCompatActivity() {
 
     private lateinit var tokenManager: TokenManager
     private var organizations: List<Organization> = listOf()
+    private lateinit var footerTextView: TextView
 
     override fun onResume() {
         super.onResume()
@@ -32,6 +33,12 @@ class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_activity)
+
+        footerTextView = findViewById(R.id.footerTextView)
+        footerTextView.setOnClickListener {
+            val intent = Intent(this@MenuActivity, AboutUsActivity::class.java)
+            startActivity(intent)
+        }
 
         val searchEditText = findViewById<EditText>(R.id.searchEditText)
         searchEditText.addTextChangedListener(object : TextWatcher {

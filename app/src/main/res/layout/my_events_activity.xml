@@ -73,7 +73,7 @@
         android:id="@+id/footerTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Saiba mais"
+        android:text="Sobre nós"
         android:gravity="center"
         android:textColor="#000000"
         android:padding="16dp"

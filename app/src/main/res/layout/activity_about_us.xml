@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#E8F5E9">
+
+    <ImageView
+        android:id="@+id/headerImageView"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/logo_ache" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sobre Nós"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bem-vindo ao Ache Seu Orgânico! Somos apaixonados por conectar pessoas com alimentos frescos, orgânicos e locais. Nossa missão é ajudar você a encontrar produtores confiáveis e contribuir para um estilo de vida mais saudável e sustentável."
+        android:textColor="#757575"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/futureCommitmentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estamos comprometidos em construir um futuro melhor, promovendo práticas agrícolas sustentáveis que respeitam o meio ambiente e asseguram alimentos de qualidade para as próximas gerações."
+        android:textColor="#757575"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/agricultureCommitmentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acreditamos que a agricultura orgânica é o caminho para um planeta mais saudável. Trabalhamos lado a lado com produtores locais para fortalecer a agricultura sustentável e apoiar comunidades agrícolas."
+        android:textColor="#757575"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/healthCommitmentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nosso compromisso é com a sua saúde. Queremos tornar mais acessíveis os alimentos orgânicos e nutritivos, promovendo um estilo de vida equilibrado e saudável para todos."
+        android:textColor="#757575"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+</LinearLayout>

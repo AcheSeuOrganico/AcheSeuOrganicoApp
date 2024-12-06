@@ -22,6 +22,8 @@ import android.text.TextWatcher
 
 class MyEventsActivity : AppCompatActivity() {
 
+    private lateinit var footerTextView: TextView
+
     override fun onResume() {
         super.onResume()
         fetchOrganizations()
@@ -30,6 +32,12 @@ class MyEventsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.my_events_activity)
+
+        footerTextView = findViewById(R.id.footerTextView)
+        footerTextView.setOnClickListener {
+            val intent = Intent(this@MyEventsActivity, AboutUsActivity::class.java)
+            startActivity(intent)
+        }
 
         val goBackButton: Button = findViewById(R.id.goBackButton)
         goBackButton.setOnClickListener {

@@ -38,6 +38,12 @@ class OrganizationActivity : AppCompatActivity() {
         "4" to R.drawable.verduras
     )
 
+    override fun onResume() {
+        super.onResume()
+        val organizationId = intent.getIntExtra("ORGANIZATION_ID", -1)
+        fetchOrganizationDetails(organizationId)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_organization_details)

@@ -251,7 +251,7 @@ class UpdateOrganizationActivity : AppCompatActivity() {
         @GET("organization/{id}")
         fun getOrganization(@Path("id") id: Int): Call<Organization>
 
-        @PATCH("organizations/{id}/")
+        @PATCH("organizations/{id}/update")
         fun updateOrganization(@Path("id") id: Int, @Body organizationRequest: OrganizationRequest): Call<OrganizationPostResponse>
     }
 

@@ -105,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Número"
-        android:maxLength="2"
+        android:maxLength="100"
         android:background="@drawable/edit_text_background"
         android:minHeight="48dp"
         android:textColorHint="#000000"
